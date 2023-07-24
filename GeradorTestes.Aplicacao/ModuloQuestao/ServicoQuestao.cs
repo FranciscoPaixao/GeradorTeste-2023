@@ -30,7 +30,7 @@ namespace GeradorTestes.Aplicacao.ModuloQuestao
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar inserir questão.";
 
@@ -57,7 +57,7 @@ namespace GeradorTestes.Aplicacao.ModuloQuestao
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar editar questão.";
 
@@ -79,7 +79,7 @@ namespace GeradorTestes.Aplicacao.ModuloQuestao
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 List<string> erros = new List<string>();
 
@@ -93,7 +93,7 @@ namespace GeradorTestes.Aplicacao.ModuloQuestao
             }
         }
 
-        private string ObterMensagemDeErro(SqlException ex)
+        private string ObterMensagemDeErro(Exception ex)
         {
             string msgErro;
 

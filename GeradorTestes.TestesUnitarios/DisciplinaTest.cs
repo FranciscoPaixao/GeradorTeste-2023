@@ -1,3 +1,4 @@
+using FluentAssertions;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
@@ -22,7 +23,7 @@ namespace GeradorTestes.TestesUnitarios
         [TestMethod]
         public void Materias_Devem_ser_diferentes_de_null()
         {
-            Assert.IsNotNull(matematica.Materias);
+            matematica.Materias.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -35,8 +36,8 @@ namespace GeradorTestes.TestesUnitarios
             matematica.AdicionarMateria(adiciaoUnidades);
             matematica.AdicionarMateria(adiciaoDezenas);
 
-            //Verificação -- Assert
-            Assert.AreEqual(2, matematica.Materias.Count);
+            //Verificação -- Assert            
+            matematica.Materias.Count.Should().Be(2);
         }
 
         [TestMethod]
@@ -50,7 +51,7 @@ namespace GeradorTestes.TestesUnitarios
             matematica.AdicionarMateria(adiciaoUnidades);
 
             //assert
-            Assert.AreEqual(1, matematica.Materias.Count);
+            matematica.Materias.Should().HaveCount(1);
         }
 
         [TestMethod]
@@ -79,7 +80,7 @@ namespace GeradorTestes.TestesUnitarios
             List<Questao> questoes = matematica.ObterTodasQuestoes();
 
             //Assert
-            Assert.AreEqual(4, questoes.Count); 
+            questoes.Should().HaveCount(4);
         }
     }
 }

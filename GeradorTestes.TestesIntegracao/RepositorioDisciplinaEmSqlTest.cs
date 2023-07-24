@@ -1,3 +1,4 @@
+using FluentAssertions;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
@@ -63,7 +64,8 @@ namespace GeradorTestes.TestesIntegracao
             //assert
 
             Disciplina disciplinaEncontrada = repositorioDisciplina.SelecionarPorId(disciplina.Id);
-            Assert.AreEqual(disciplina, disciplinaEncontrada);
+
+            disciplinaEncontrada.Should().Be(disciplina);
         }
 
         [TestMethod]
@@ -85,7 +87,7 @@ namespace GeradorTestes.TestesIntegracao
 
             Disciplina disciplinaEncontrada = repositorioDisciplina.SelecionarPorId(disciplinaAtualizada.Id);
 
-            Assert.AreEqual(disciplinaAtualizada, disciplinaEncontrada);
+            disciplinaEncontrada.Should().Be(disciplinaAtualizada);
         }
 
         [TestMethod]
@@ -103,7 +105,7 @@ namespace GeradorTestes.TestesIntegracao
 
             Disciplina disciplinaEncontrada = repositorioDisciplina.SelecionarPorId(disciplina.Id);
 
-            Assert.IsNull(disciplinaEncontrada);
+            disciplinaEncontrada.Should().BeNull();            
         }
 
         [TestMethod]
@@ -120,10 +122,10 @@ namespace GeradorTestes.TestesIntegracao
             var disciplinas = repositorioDisciplina.SelecionarTodos();
 
             //assert
-            Assert.AreEqual(matematica, disciplinas[0]);
-            Assert.AreEqual(portugues, disciplinas[1]);
+            disciplinas[0].Should().Be(matematica);
+            disciplinas[1].Should().Be(portugues);
 
-            Assert.AreEqual(2, disciplinas.Count);
+            disciplinas.Should().HaveCount(2);
         }
 
         [TestMethod]
@@ -144,10 +146,10 @@ namespace GeradorTestes.TestesIntegracao
             var disciplinas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true);
 
             //assert
-            Assert.AreEqual(adiciaoUnidades, disciplinas[0].Materias[0]);
-            Assert.AreEqual(adiciaoDezenas, disciplinas[0].Materias[1]);
+            disciplinas[0].Materias[0].Should().Be(adiciaoUnidades);
+            disciplinas[0].Materias[1].Should().Be(adiciaoDezenas);
 
-            Assert.AreEqual(2, disciplinas[0].Materias.Count);
+            disciplinas[0].Materias.Count.Should().Be(2);
         }
 
         [TestMethod]
@@ -171,11 +173,11 @@ namespace GeradorTestes.TestesIntegracao
             //action
             var disciplinasEncontradas = repositorioDisciplina.SelecionarTodos(incluirMaterias: true, incluirQuestoes: true);
 
-            //assert            
-            Assert.AreEqual(questao1, disciplinasEncontradas[0].Materias[0].Questoes[0]);
-            Assert.AreEqual(questao2, disciplinasEncontradas[0].Materias[0].Questoes[1]);
+            //assert
+            disciplinasEncontradas[0].Materias[0].Questoes[0].Should().Be(questao1);
+            disciplinasEncontradas[0].Materias[0].Questoes[1].Should().Be(questao2);
 
-            Assert.AreEqual(2, disciplinasEncontradas[0].Materias[0].Questoes.Count);
+            disciplinasEncontradas[0].Materias[0].Questoes.Should().HaveCount(2);
         }
 
         [TestMethod]
@@ -189,8 +191,8 @@ namespace GeradorTestes.TestesIntegracao
             //action
             var disciplinasEncontrada = repositorioDisciplina.SelecionarPorNome(matematica.Nome);
 
-            //assert            
-            Assert.AreEqual(matematica, disciplinasEncontrada);
+            //assert
+            disciplinasEncontrada.Should().Be(matematica);
         }
 
         [TestMethod]
@@ -205,7 +207,7 @@ namespace GeradorTestes.TestesIntegracao
             var disciplinasEncontrada = repositorioDisciplina.SelecionarPorId(matematica.Id);
 
             //assert            
-            Assert.AreEqual(matematica, disciplinasEncontrada);
+            disciplinasEncontrada.Should().Be(matematica);
         }
 
 

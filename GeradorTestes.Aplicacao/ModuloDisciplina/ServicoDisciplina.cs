@@ -5,11 +5,11 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
     public class ServicoDisciplina
     {
         private IRepositorioDisciplina repositorioDisciplina;
-        private ValidadorDisciplina validadorDisciplina;
+        private IValidadorDisciplina validadorDisciplina;
 
         public ServicoDisciplina(
             IRepositorioDisciplina repositorioDisciplina,
-            ValidadorDisciplina validadorDisciplina)
+            IValidadorDisciplina validadorDisciplina)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.validadorDisciplina = validadorDisciplina;
@@ -22,7 +22,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
             List<string> erros = ValidarDisciplina(disciplina);
 
             if (erros.Count() > 0)
-                return Result.Fail(erros);
+                return Result.Fail(erros); //cenário 2
 
             try
             {
@@ -30,15 +30,15 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 Log.Debug("Disciplina {DisciplinaId} inserida com sucesso", disciplina.Id);
 
-                return Result.Ok();
+                return Result.Ok(); //cenário 1
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar inserir disciplina.";
 
                 Log.Error(exc, msgErro + "{@d}", disciplina);
 
-                return Result.Fail(msgErro);
+                return Result.Fail(msgErro); //cenário 3
             }
         }
 
@@ -59,7 +59,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar editar disciplina.";
 
@@ -81,7 +81,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 List<string> erros = new List<string>();
 
@@ -97,8 +97,12 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
         private List<string> ValidarDisciplina(Disciplina disciplina)
         {
-            List<string> erros = validadorDisciplina.Validate(disciplina)
-                .Errors.Select(x => x.ErrorMessage).ToList();
+            var resultadoValidacao = validadorDisciplina.Validate(disciplina);
+
+            List<string> erros = new List<string>();
+
+            if (resultadoValidacao != null)
+                erros.AddRange(resultadoValidacao.Errors.Select(x => x.ErrorMessage));
 
             if (NomeDuplicado(disciplina))
                 erros.Add($"Este nome '{disciplina.Nome}' já está sendo utilizado");
@@ -125,7 +129,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
             return false;
         }
 
-        private static string ObterMensagemDeErro(SqlException ex)
+        private static string ObterMensagemDeErro(Exception ex)
         {
             string msgErro;
 

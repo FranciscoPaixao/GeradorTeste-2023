@@ -10,13 +10,40 @@ using GeradorTestes.Infra.Sql.ModuloMateria;
 using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
 using Microsoft.Extensions.Configuration;
+using Moq;
+using System;
 using System.IO;
 
 namespace GeradorTestes.ConsoleApp
 {
+    public class Animal
+    {
+        public virtual bool EstaCorrendo()
+        {
+            return true;
+        }
+    }
+
     internal class Program
-    {       
+    {
         static void Main(string[] args)
+        {
+            Animal animal = new Animal();   
+
+            var estaCorrendo1 = animal.EstaCorrendo();
+
+            Mock<Animal> mockAnimal = new Mock<Animal>();
+            mockAnimal.Setup(x => x.EstaCorrendo()).Returns(() =>
+                { 
+                    return false; 
+                });
+
+            Animal outroAnimal = mockAnimal.Object;
+            
+            var estaCorrendo2 = outroAnimal.EstaCorrendo();
+        }
+
+        static void Main2(string[] args)
         {
             var configuracao = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())

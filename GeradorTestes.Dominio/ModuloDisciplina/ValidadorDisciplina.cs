@@ -1,6 +1,6 @@
 ﻿namespace GeradorTestes.Dominio.ModuloDisciplina
 {
-    public class ValidadorDisciplina : AbstractValidator<Disciplina>
+    public class ValidadorDisciplina : AbstractValidator<Disciplina>, IValidadorDisciplina
     {
         public ValidadorDisciplina()
         {

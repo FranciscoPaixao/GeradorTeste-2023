@@ -41,7 +41,7 @@ namespace GeradorTestes.Aplicacao.ModuloTeste
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar inserir teste.";
 
@@ -69,7 +69,7 @@ namespace GeradorTestes.Aplicacao.ModuloTeste
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 List<string> erros = new List<string>();
 

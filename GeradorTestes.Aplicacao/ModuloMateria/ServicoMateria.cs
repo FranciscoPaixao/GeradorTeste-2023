@@ -30,7 +30,7 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar inserir matéria.";
 
@@ -57,7 +57,7 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
 
                 return Result.Ok();
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar editar matéria.";
 
@@ -79,7 +79,7 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 List<string> erros = new List<string>();
 
@@ -123,7 +123,7 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             return false;
         }
 
-        private static string ObterMensagemErro(SqlException ex)
+        private static string ObterMensagemErro(Exception ex)
         {
             string msgErro;
 
