@@ -1,13 +1,34 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using FizzWare.NBuilder;
+using GeradorTestes.Dominio.ModuloDisciplina;
+using GeradorTestes.Dominio.ModuloMateria;
+using GeradorTestes.Dominio.ModuloQuestao;
+using GeradorTestes.Infra.Sql.ModuloDisciplina;
+using GeradorTestes.Infra.Sql.ModuloMateria;
+using GeradorTestes.Infra.Sql.ModuloQuestao;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace GeradorTestes.TestesIntegracao.Compartilhado
 {
     public class TestesIntegracaoBase
     {
+        protected IRepositorioDisciplina repositorioDisciplina;
+        protected IRepositorioMateria repositorioMateria;
+        protected IRepositorioQuestao repositorioQuestao;
+
         public TestesIntegracaoBase()
         {
             LimparTabelas();
+
+            string connectionString = ObterConnectionString();
+
+            repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
+            repositorioMateria = new RepositorioMateriaEmSql(connectionString);
+            repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
+
+            BuilderSetup.SetCreatePersistenceMethod<Disciplina>(repositorioDisciplina.Inserir);
+            BuilderSetup.SetCreatePersistenceMethod<Materia>(repositorioMateria.Inserir);
+            BuilderSetup.SetCreatePersistenceMethod<Questao>(repositorioQuestao.Inserir);
         }
 
         protected static void LimparTabelas()
@@ -36,7 +57,7 @@ namespace GeradorTestes.TestesIntegracao.Compartilhado
             sqlConnection.Close();
         }
 
-        protected static string? ObterConnectionString()
+        protected static string ObterConnectionString()
         {
             var configuracao = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

@@ -3,32 +3,12 @@ using FluentAssertions;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using GeradorTestes.Infra.Sql.ModuloMateria;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
-using System.Net;
 
 namespace GeradorTestes.TestesIntegracao.ModuloDisciplina
 {
     [TestClass]
     public class RepositorioDisciplinaEmSqlTest : TestesIntegracaoBase
     {
-        private IRepositorioDisciplina repositorioDisciplina;
-        private IRepositorioMateria repositorioMateria;
-        private IRepositorioQuestao repositorioQuestao;
-        public RepositorioDisciplinaEmSqlTest()
-        {
-            string? connectionString = ObterConnectionString();
-
-            repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
-            repositorioMateria = new RepositorioMateriaEmSql(connectionString);
-            repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
-
-            BuilderSetup.SetCreatePersistenceMethod<Disciplina>(repositorioDisciplina.Inserir);
-            BuilderSetup.SetCreatePersistenceMethod<Materia>(repositorioMateria.Inserir);
-            BuilderSetup.SetCreatePersistenceMethod<Questao>(repositorioQuestao.Inserir);
-        }     
-
         [TestMethod]
         public void Deve_inserir_disciplina()
         {            
@@ -48,15 +28,15 @@ namespace GeradorTestes.TestesIntegracao.ModuloDisciplina
             //arrange
             var disciplinaId = Builder<Disciplina>.CreateNew().Persist().Id;            
 
-            var disciplinaAtualizada = repositorioDisciplina.SelecionarPorId(disciplinaId);
-            disciplinaAtualizada.Nome = "História";
+            var disciplina = repositorioDisciplina.SelecionarPorId(disciplinaId);
+            disciplina.Nome = "História";
 
             //action
-            repositorioDisciplina.Editar(disciplinaAtualizada);
+            repositorioDisciplina.Editar(disciplina);
 
             //assert
-            repositorioDisciplina.SelecionarPorId(disciplinaAtualizada.Id)
-                .Should().Be(disciplinaAtualizada);
+            repositorioDisciplina.SelecionarPorId(disciplina.Id)
+                .Should().Be(disciplina);
         }
 
         [TestMethod]
