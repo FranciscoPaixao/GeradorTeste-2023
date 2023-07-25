@@ -32,7 +32,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Ok(); //cenário 1
             }
-            catch (SqlException exc)
+            catch (Exception exc)
             {
                 string msgErro = "Falha ao tentar inserir disciplina.";
 
@@ -41,7 +41,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
                 return Result.Fail(msgErro); //cenário 3
             }
         }
-
+        
         public Result Editar(Disciplina disciplina)
         {
             Log.Debug("Tentando editar disciplina...{@d}", disciplina);
@@ -90,7 +90,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Ok();
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 List<string> erros = new List<string>();
               

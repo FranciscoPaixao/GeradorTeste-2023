@@ -4,7 +4,7 @@ using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GeradorTestes.TestesUnitarios
+namespace GeradorTestes.TestesUnitarios.Dominio
 {
     [TestClass]
     public class DisciplinaTest
@@ -28,7 +28,7 @@ namespace GeradorTestes.TestesUnitarios
 
         [TestMethod]
         public void Deve_permitir_adicionar_materias_na_disciplina()
-        {            
+        {
             //Cenário -- Arrange
             Materia adiciaoDezenas = new Materia("Adição de Dezenas", SerieMateriaEnum.PrimeiraSerie, matematica);
 
@@ -45,7 +45,7 @@ namespace GeradorTestes.TestesUnitarios
         {
             //arrange
             adiciaoUnidades = new Materia("Adição de Unidades", SerieMateriaEnum.PrimeiraSerie, matematica);
-            
+
             //action
             matematica.AdicionarMateria(adiciaoUnidades);
             matematica.AdicionarMateria(adiciaoUnidades);
@@ -72,7 +72,7 @@ namespace GeradorTestes.TestesUnitarios
 
             adiciaoDezenas.AdicionaQuestao(q3);
             adiciaoDezenas.AdicionaQuestao(q4);
-            
+
             matematica.AdicionarMateria(adiciaoUnidades);
             matematica.AdicionarMateria(adiciaoDezenas);
 

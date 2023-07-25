@@ -3,7 +3,7 @@
 using GeradorTestes.Dominio.ModuloDisciplina;
 using System.Runtime.ConstrainedExecution;
 
-namespace GeradorTestes.TestesUnitarios
+namespace GeradorTestes.TestesUnitarios.Dominio
 {
     [TestClass]
     public class ValidadorDisciplinaTest
@@ -20,7 +20,7 @@ namespace GeradorTestes.TestesUnitarios
 
         [TestMethod]
         public void Nome_disciplina_nao_deve_ser_nulo_ou_vazio()
-        {            
+        {
             //action
             var resultado = validador.TestValidate(disciplina);
 

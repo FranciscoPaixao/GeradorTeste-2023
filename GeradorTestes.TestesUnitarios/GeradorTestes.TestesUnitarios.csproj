@@ -26,10 +26,4 @@
     <ProjectReference Include="..\GeradorTestes.Infra.Sql\GeradorTestes.Infra.Sql.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
