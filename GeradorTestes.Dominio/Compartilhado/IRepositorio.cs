@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GeradorTestes.Dominio
+﻿namespace GeradorTestes.Dominio
 {
     public interface IRepositorio<T> where T : EntidadeBase<T>
     {
@@ -10,8 +8,11 @@ namespace GeradorTestes.Dominio
 
         void Excluir(T registro);
 
+        bool Existe(T registro);
+
         List<T> SelecionarTodos();
 
         T SelecionarPorId(int id);
+
     }
 }

@@ -13,6 +13,11 @@ namespace eAgenda.Infra.Arquivos.ModuloTeste
             contextoDados = contexto as GeradorTesteJsonContext;
         }
 
+        public bool Existe(Teste registro)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override List<Teste> ObterRegistros()
         {
             return contextoDados.Testes;

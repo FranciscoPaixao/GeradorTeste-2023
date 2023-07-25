@@ -18,6 +18,11 @@ namespace GeradorTestes.ConsoleApp
 {
     public class Animal
     {
+        public Animal()
+        {
+            
+        }
+
         public virtual bool EstaCorrendo()
         {
             return true;
@@ -28,6 +33,7 @@ namespace GeradorTestes.ConsoleApp
     {
         static void Main(string[] args)
         {
+
             Animal animal = new Animal();   
 
             var estaCorrendo1 = animal.EstaCorrendo();

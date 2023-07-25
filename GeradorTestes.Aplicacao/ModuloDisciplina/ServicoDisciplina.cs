@@ -32,7 +32,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Ok(); //cenário 1
             }
-            catch (Exception exc)
+            catch (SqlException exc)
             {
                 string msgErro = "Falha ao tentar inserir disciplina.";
 
@@ -75,6 +75,15 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
             try
             {
+                bool disciplinaExiste = repositorioDisciplina.Existe(disciplina);
+
+                if (disciplinaExiste == false)
+                {
+                    Log.Warning("Disciplina {DisciplinaId} não encontrada para excluir", disciplina.Id);
+
+                    return Result.Fail("Disciplina não encontrada");
+                }
+
                 repositorioDisciplina.Excluir(disciplina);
 
                 Log.Debug("Disciplina {DisciplinaId} excluída com sucesso", disciplina.Id);
@@ -84,8 +93,13 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
             catch (Exception ex)
             {
                 List<string> erros = new List<string>();
+              
+                string msgErro;
 
-                string msgErro = ObterMensagemDeErro(ex);
+                if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
+                    msgErro = "Esta disciplina está relacionada com uma matéria e não pode ser excluída";
+                else
+                    msgErro = "Falha ao tentar excluir disciplina";
 
                 erros.Add(msgErro);
 
@@ -93,7 +107,7 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 return Result.Fail(erros);
             }
-        }       
+        }
 
         private List<string> ValidarDisciplina(Disciplina disciplina)
         {
@@ -129,16 +143,5 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
             return false;
         }
 
-        private static string ObterMensagemDeErro(Exception ex)
-        {
-            string msgErro;
-
-            if (ex.Message.Contains("FK_TBMateria_TBDisciplina"))
-                msgErro = "Esta disciplina está relacionada com uma matéria e não pode ser excluída";
-            else
-                msgErro = "Esta disciplina não pode ser excluída";
-
-            return msgErro;
-        }
     }
 }

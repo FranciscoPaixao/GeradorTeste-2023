@@ -14,6 +14,11 @@ namespace eAgenda.Infra.Arquivos.ModuloMateria
             contextoDados = contexto as GeradorTesteJsonContext;
         }
 
+        public bool Existe(Materia registro)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override List<Materia> ObterRegistros()
         {
             return contextoDados.Materias;

@@ -20,6 +20,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
         protected abstract string sqlExcluir { get; }
         protected abstract string sqlSelecionarTodos { get; }
         protected abstract string sqlSelecionarPorId { get; }
+        protected abstract string sqlExisteRegistro { get; }
 
         public virtual void Inserir(TEntidade novoRegistro)
         {
@@ -84,6 +85,28 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
 
             //encerra a conexão
             conexaoComBanco.Close();
+        }
+
+        public virtual bool Existe(TEntidade registroSelecionado)
+        {
+            //obter a conexão com o banco e abrir ela
+            SqlConnection conexaoComBanco = new SqlConnection(connectionString);
+            conexaoComBanco.Open();
+
+            //cria um comando e relaciona com a conexão aberta
+            SqlCommand comandoExisteRegistros = conexaoComBanco.CreateCommand();
+            comandoExisteRegistros.CommandText = sqlExisteRegistro;
+
+            //adiciona os parâmetros no comando
+            comandoExisteRegistros.Parameters.AddWithValue("ID", registroSelecionado.Id);
+
+            //executa o comando
+            var qtdRegistros = comandoExisteRegistros.ExecuteScalar();
+
+            //encerra a conexão
+            conexaoComBanco.Close();
+
+            return Convert.ToInt32(qtdRegistros) > 0;
         }
 
         public virtual TEntidade SelecionarPorId(int id)

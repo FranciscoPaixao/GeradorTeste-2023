@@ -93,6 +93,17 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
             WHERE
                 MT.NOME = @NOME";
 
+        protected override string sqlExisteRegistro =>
+             @"SELECT 
+
+		            COUNT(*)
+
+	            FROM 
+		            [TBMATERIA]
+
+		        WHERE
+                    [ID] = @ID";
+
         public Materia SelecionarPorNome(string nome)
         {
             SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("NOME", nome) };

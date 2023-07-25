@@ -125,6 +125,17 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 		            WHERE
 			            [QUESTAO_ID] = @QUESTAO_ID";
 
+        protected override string sqlExisteRegistro =>
+             @"SELECT 
+
+		            COUNT(*)
+
+	            FROM 
+		            [TBQUESTAO]
+
+		        WHERE
+                    [ID] = @ID";
+
         public override void Inserir(Questao questao)
         {
             base.Inserir(questao);

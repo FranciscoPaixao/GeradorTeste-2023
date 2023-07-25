@@ -15,6 +15,11 @@ namespace eAgenda.Infra.Arquivos.ModuloDisciplina
             contextoDados = contexto as GeradorTesteJsonContext;
         }
 
+        public bool Existe(Disciplina registro)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override List<Disciplina> ObterRegistros()
         {
             return contextoDados.Disciplinas;

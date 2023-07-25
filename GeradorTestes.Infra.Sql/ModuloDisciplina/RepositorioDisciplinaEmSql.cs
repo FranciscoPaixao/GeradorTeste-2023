@@ -92,7 +92,18 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
 		        WHERE
                     [MATERIA_ID] = @MATERIA_ID AND [JAUTILIZADA] = 0";
 
-      
+        protected override string sqlExisteRegistro =>
+             @"SELECT 
+
+		            COUNT(*)
+
+	            FROM 
+		            [TBDISCIPLINA]
+
+		        WHERE
+                    [ID] = @ID";
+
+
         #endregion
 
         public List<Disciplina> SelecionarTodos(bool incluirMaterias = false, bool incluirQuestoes=false)
