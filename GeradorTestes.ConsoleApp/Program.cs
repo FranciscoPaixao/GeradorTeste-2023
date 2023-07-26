@@ -10,6 +10,7 @@ using GeradorTestes.Infra.Sql.ModuloDisciplina;
 using GeradorTestes.Infra.Sql.ModuloMateria;
 using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -24,9 +25,64 @@ namespace GeradorTestes.ConsoleApp
         {
             LimparTabelas();
 
-            var disciplina = InserirDisciplina();
+            InserirDisciplina();
 
             InserirMateria();
+
+            InserirQuestoes();
+
+            InserirTeste();
+        }
+
+        private static void InserirTeste()
+        {
+            Console.Clear();
+
+            var dbContext = new GeradorTestesDbContext();
+
+            var disciplina = dbContext.Disciplinas.FirstOrDefault(x => x.Nome == "Matemática");
+
+            var materia = dbContext.Materias
+                .Include(x => x.Questoes)
+                    .ThenInclude(x => x.Alternativas)
+                .FirstOrDefault(x => x.Nome.Contains("Adição"));
+
+            Teste novoTeste = new Teste();
+
+            novoTeste.Titulo = "Revisão sobre Adição de Unidades";
+            novoTeste.Disciplina = disciplina;
+            novoTeste.Materia = materia;
+            novoTeste.Provao = false;
+            novoTeste.QuantidadeQuestoes = 5;
+            novoTeste.SortearQuestoes();
+            novoTeste.DataGeracao = DateTime.Now;
+
+            dbContext.Testes.Add(novoTeste);
+
+            dbContext.SaveChanges();
+        }
+
+        private static void InserirQuestoes()
+        {
+            Console.Clear();
+
+            var dbContext = new GeradorTestesDbContext();
+
+            var materia = dbContext.Materias.FirstOrDefault(x => x.Nome.Contains("Adição"));
+
+            for (int numero = 1; numero <= 10; numero++)
+            {
+                var questao = new Questao($"Quanto é {numero}+{numero} ?", materia);
+
+                questao.AdicionarAlternativa(new Alternativa('a', (numero + 1).ToString(), false));
+                questao.AdicionarAlternativa(new Alternativa('b', (numero + 2).ToString(), true));
+                questao.AdicionarAlternativa(new Alternativa('c', (numero + 3).ToString(), false));
+                questao.AdicionarAlternativa(new Alternativa('d', (numero + 4).ToString(), false));
+
+                dbContext.Questoes.Add(questao);
+            }
+
+            dbContext.SaveChanges();
         }
 
         private static void InserirMateria()
@@ -68,6 +124,10 @@ namespace GeradorTestes.ConsoleApp
             dbContext.Disciplinas.RemoveRange(dbContext.Disciplinas);
 
             dbContext.Materias.RemoveRange(dbContext.Materias);
+
+            dbContext.Questoes.RemoveRange(dbContext.Questoes);
+
+            dbContext.Testes.RemoveRange(dbContext.Testes);
 
             dbContext.SaveChanges();
         }
