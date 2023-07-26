@@ -4,49 +4,72 @@ using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
 using GeradorTestes.Infra.MassaDados;
+using GeradorTestes.Infra.Orm;
 using GeradorTestes.Infra.Pdf;
 using GeradorTestes.Infra.Sql.ModuloDisciplina;
 using GeradorTestes.Infra.Sql.ModuloMateria;
 using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace GeradorTestes.ConsoleApp
 {
-    public class Animal
-    {
-        public Animal()
-        {
-            
-        }
-
-        public virtual bool EstaCorrendo()
-        {
-            return true;
-        }
-    }
 
     internal class Program
     {
         static void Main(string[] args)
         {
+            LimparTabelas();
 
-            Animal animal = new Animal();   
+            var disciplina = InserirDisciplina();
 
-            var estaCorrendo1 = animal.EstaCorrendo();
+            InserirMateria();
+        }
 
-            Mock<Animal> mockAnimal = new Mock<Animal>();
-            mockAnimal.Setup(x => x.EstaCorrendo()).Returns(() =>
-                { 
-                    return false; 
-                });
+        private static void InserirMateria()
+        {
+            Console.Clear();
 
-            Animal outroAnimal = mockAnimal.Object;
-            
-            var estaCorrendo2 = outroAnimal.EstaCorrendo();
+            var dbContext = new GeradorTestesDbContext();
+
+            var disciplina = dbContext.Disciplinas.FirstOrDefault(x => x.Nome == "Matemática");
+
+            var materia = new Materia("Adição de Unidades", SerieMateriaEnum.PrimeiraSerie, disciplina);
+
+            dbContext.Materias.Add(materia);
+
+            dbContext.SaveChanges();
+        }
+
+        private static Disciplina InserirDisciplina()
+        {
+            Console.Clear();
+
+            var dbContext = new GeradorTestesDbContext();
+
+            var disciplina = new Disciplina("Matemática");
+
+            dbContext.Disciplinas.Add(disciplina);
+
+            dbContext.SaveChanges();
+
+            return disciplina;
+        }
+
+        private static void LimparTabelas()
+        {
+            Console.Clear();
+
+            GeradorTestesDbContext dbContext = new GeradorTestesDbContext();
+
+            dbContext.Disciplinas.RemoveRange(dbContext.Disciplinas);
+
+            dbContext.Materias.RemoveRange(dbContext.Materias);
+
+            dbContext.SaveChanges();
         }
 
         static void Main2(string[] args)
@@ -72,6 +95,6 @@ namespace GeradorTestes.ConsoleApp
             GeradorMassaDados geradorMassa = new GeradorMassaDados(repositorioDisciplina, repositorioMateria, repositorioQuestao, servicoTeste);
 
             geradorMassa.ConfigurarTesteMatematica();
-        }     
+        }
     }
 }

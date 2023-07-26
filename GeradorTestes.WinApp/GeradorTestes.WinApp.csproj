@@ -19,6 +19,7 @@
     <ProjectReference Include="..\GeradorTestes.Aplicacao\GeradorTestes.Aplicacao.csproj" />
     <ProjectReference Include="..\GeradorTestes.Dominio\GeradorTestes.Dominio.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Arquivos\GeradorTestes.Infra.Arquivos.csproj" />
+    <ProjectReference Include="..\GeradorTestes.Infra.Orm\GeradorTestes.Infra.Orm.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Pdf\GeradorTestes.Infra.Pdf.csproj" />
     <ProjectReference Include="..\GeradorTestes.Infra.Sql\GeradorTestes.Infra.Sql.csproj" />
   </ItemGroup>
