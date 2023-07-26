@@ -13,7 +13,7 @@ namespace GeradorTestes.TestesIntegracao.ModuloDisciplina
         public void Deve_inserir_disciplina()
         {            
             //arrange
-            Disciplina disciplina = new Disciplina("abcdefeska");
+            var disciplina = Builder<Disciplina>.CreateNew().Build();
 
             //action
             repositorioDisciplina.Inserir(disciplina);
