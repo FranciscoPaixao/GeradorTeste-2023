@@ -109,7 +109,11 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
             SqlParameter[] parametros = new SqlParameter[] { new SqlParameter("NOME", nome) };
 
             return base.SelecionarRegistroPorParametro(sqlSelecionarPorNome, parametros);
-        }
+        }        
 
+        public List<Materia> SelecionarTodos(bool incluirDisciplina = false)
+        {
+            return base.SelecionarTodos();
+        }
     }
 }

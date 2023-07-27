@@ -4,7 +4,6 @@ using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
 using GeradorTestes.Infra.MassaDados;
-using GeradorTestes.Infra.Orm;
 using GeradorTestes.Infra.Pdf;
 using GeradorTestes.Infra.Sql.ModuloDisciplina;
 using GeradorTestes.Infra.Sql.ModuloMateria;
@@ -12,26 +11,25 @@ using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.IO;
-using System.Linq;
 
 namespace GeradorTestes.ConsoleApp
 {
 
     internal class Program
     {
+        /* Exemplos com Entity
         static void Main(string[] args)
         {
-            LimparTabelas();
+            //LimparTabelas();
 
             InserirDisciplina();
 
-            InserirMateria();
+            //InserirMateria();
 
-            InserirQuestoes();
+            //InserirQuestoes();
 
-            InserirTeste();
+            //InserirTeste();
         }
 
         private static void InserirTeste()
@@ -108,9 +106,9 @@ namespace GeradorTestes.ConsoleApp
 
             var disciplina = new Disciplina("Matemática");
 
-            dbContext.Disciplinas.Add(disciplina);
+            var repositorio = new RepositorioDisciplinaEmOrm(dbContext);
 
-            dbContext.SaveChanges();
+            repositorio.Inserir(disciplina);
 
             return disciplina;
         }
@@ -131,8 +129,9 @@ namespace GeradorTestes.ConsoleApp
 
             dbContext.SaveChanges();
         }
+        */
 
-        static void Main2(string[] args)
+        static void Main(string[] args)
         {
             var configuracao = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())

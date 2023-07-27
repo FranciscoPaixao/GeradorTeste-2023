@@ -120,7 +120,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
 
         private void CarregarMaterias()
         {
-            List<Materia> materias = repositorioMateria.SelecionarTodos();
+            List<Materia> materias = repositorioMateria.SelecionarTodos(incluirDisciplina: true);
 
             tabelaMaterias.AtualizarRegistros(materias);
 

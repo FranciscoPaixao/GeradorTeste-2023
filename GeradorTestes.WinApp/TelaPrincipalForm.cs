@@ -6,18 +6,23 @@ using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
 using GeradorTestes.Dominio.ModuloTeste;
+
+using GeradorTestes.Infra.Orm.Compartilhado;
+using GeradorTestes.Infra.Orm.ModuloDisciplina;
+using GeradorTestes.Infra.Orm.ModuloMateria;
+using GeradorTestes.Infra.Orm.ModuloQuestao;
+using GeradorTestes.Infra.Orm.ModuloTeste;
+
 using GeradorTestes.Infra.Pdf;
-using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using GeradorTestes.Infra.Sql.ModuloMateria;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloTeste;
 using GeradorTestes.WinApp.ModuloDisciplina;
 using GeradorTestes.WinApp.ModuloMateria;
 using GeradorTestes.WinApp.ModuloQuestao;
 using GeradorTestes.WinApp.ModuloTeste;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GeradorTestes.WinApp
@@ -51,7 +56,20 @@ namespace GeradorTestes.WinApp
 
             var connectionString = configuracao.GetConnectionString("SqlServer");
 
-            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
+            var optionsBuilder = new DbContextOptionsBuilder<GeradorTestesDbContext>();
+
+            optionsBuilder.UseSqlServer(connectionString);
+
+            var dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
+
+            var migracoesPendentes = dbContext.Database.GetPendingMigrations();
+
+            if (migracoesPendentes.Count() > 0)
+            {
+                dbContext.Database.Migrate();
+            }
+
+            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmOrm(dbContext);
 
             ValidadorDisciplina validadorDisciplina = new ValidadorDisciplina();
 
@@ -59,20 +77,20 @@ namespace GeradorTestes.WinApp
 
             controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 
-            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql(connectionString);
+            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmOrm(dbContext);
 
             ValidadorMateria validadorMateria = new ValidadorMateria();
             ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria);
 
             controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
 
-            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
+            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmOrm(dbContext);
 
             ValidadorQuestao validadorQuestao = new ValidadorQuestao();
             ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
             controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao));
 
-            IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql(connectionString);
+            IRepositorioTeste repositorioTeste = new RepositorioTesteEmOrm(dbContext);
 
             IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
 

@@ -28,9 +28,19 @@ namespace eAgenda.Infra.Arquivos.ModuloTeste
             return base.SelecionarPorId(id);
         }
 
+        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<Teste> SelecionarTodos(bool incluirDisciplinaEhMateria)
         {
             return ObterRegistros();
+        }
+
+        public List<Teste> SelecionarTodos(bool incluirMateria = false, bool incluirDisciplina = false)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

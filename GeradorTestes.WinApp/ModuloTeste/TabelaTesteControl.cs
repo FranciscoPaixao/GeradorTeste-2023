@@ -46,7 +46,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
             foreach (var teste in testes)
             {
-                string disciplina = teste.Provao ? teste.Disciplina.Nome : teste.Materia.Disciplina.Nome;
+                string disciplina = teste.Provao ? teste.Disciplina?.Nome : teste.Materia?.Disciplina?.Nome;
 
                 grid.Rows.Add(teste.Id, teste.Titulo, disciplina,
                     teste.Provao ? "Provão" : "Fixação da Matéria", teste.Materia?.Nome);

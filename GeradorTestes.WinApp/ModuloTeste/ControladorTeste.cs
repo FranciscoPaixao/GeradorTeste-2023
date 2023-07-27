@@ -126,7 +126,8 @@ namespace GeradorTestes.WinApp.ModuloTeste
         {
             int id = tabelaTeste.ObtemIdSelecionado();
 
-            Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes: true, incluirAlternativas: true);
+            Teste testeSelecionado = repositorioTeste
+                .SelecionarPorId(id, incluirQuestoes: true, incluirAlternativas: true, incluirMateria: true);
 
             if (testeSelecionado == null)
             {
@@ -162,7 +163,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         private void CarregarTestes()
         {
-            List<Teste> testes = repositorioTeste.SelecionarTodos();
+            List<Teste> testes = repositorioTeste.SelecionarTodos(incluirMateria: true, incluirDisciplina: true);
 
             tabelaTeste.AtualizarRegistros(testes);
 

@@ -41,8 +41,8 @@ namespace GeradorTestes.WinApp.ModuloMateria
             grid.Rows.Clear();
 
             foreach (var materia in materias)
-            {
-                grid.Rows.Add(materia.Id, materia.Nome, materia.Disciplina.Nome, materia.Serie.GetDescription());
+            {                
+                grid.Rows.Add(materia.Id, materia.Nome, materia.Disciplina?.Nome, materia.Serie.GetDescription());
             }
         }
     }

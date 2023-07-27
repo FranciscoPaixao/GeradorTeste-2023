@@ -253,5 +253,15 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
                 questao.AdicionarAlternativa(alternativa);
             }
         }
+
+        public List<Teste> SelecionarTodos(bool incluirMateria = false, bool incluirDisciplina = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

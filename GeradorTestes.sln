@@ -53,7 +53,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2 IntegrationTests", "5.2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orm", "Orm", "{826C7B40-71E7-4807-AE4E-328DCED3BA48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorTestes.Infra.Orm", "GeradorTestes.Infra.Orm\GeradorTestes.Infra.Orm.csproj", "{733073D1-C2D2-49A7-BDDD-067FA6680B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorTestes.Infra.Orm", "GeradorTestes.Infra.Orm\GeradorTestes.Infra.Orm.csproj", "{733073D1-C2D2-49A7-BDDD-067FA6680B55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E75EC13-8ADF-4096-8646-7D7317A6A318}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
