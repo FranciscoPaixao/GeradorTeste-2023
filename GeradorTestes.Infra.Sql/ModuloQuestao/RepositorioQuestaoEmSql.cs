@@ -20,9 +20,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
                     @ENUNCIADO
                    ,@JAUTILIZADA
                    ,@MATERIA_ID
-                );
-                
-                SELECT SCOPE_IDENTITY();";
+                );";
 
         protected override string sqlEditar =>
             @"UPDATE [TBQUESTAO]
@@ -102,9 +100,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 		               ,@LETRA
 		               ,@RESPOSTA
 		               ,@CORRETA
-	                ); 
-
-                    SELECT SCOPE_IDENTITY();";
+	                );";
 
         private string sqlSelecionarAlternativas =>
            @"SELECT 
@@ -159,7 +155,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
             base.Excluir(questaoSelecionada);
         }
 
-        public Questao SelecionarPorId(int id, bool incluirAlternativas = false)
+        public Questao SelecionarPorId(Guid id, bool incluirAlternativas = false)
         {
             Questao questao = base.SelecionarPorId(id);
 

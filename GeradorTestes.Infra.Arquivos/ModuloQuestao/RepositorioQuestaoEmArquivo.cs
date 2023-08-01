@@ -23,7 +23,7 @@ namespace eAgenda.Infra.Arquivos.ModuloQuestao
             return contextoDados.Questoes;
         }
 
-        public Questao SelecionarPorId(int id, bool incluirAlternativas = false)
+        public Questao SelecionarPorId(Guid id, bool incluirAlternativas = false)
         {
             return SelecionarPorId(id);
         }       

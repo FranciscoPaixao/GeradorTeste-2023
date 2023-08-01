@@ -30,7 +30,7 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
 
         public override Teste ConverterRegistro(SqlDataReader leitorTeste)
         {
-            int id = Convert.ToInt32(leitorTeste["TESTE_ID"]);
+            Guid id = Guid.Parse(leitorTeste["TESTE_ID"].ToString());
 
             string titulo = Convert.ToString(leitorTeste["TESTE_TITULO"]);
 

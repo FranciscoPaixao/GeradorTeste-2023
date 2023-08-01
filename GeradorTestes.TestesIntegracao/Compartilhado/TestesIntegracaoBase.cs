@@ -2,10 +2,12 @@
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Infra.Sql.ModuloDisciplina;
-using GeradorTestes.Infra.Sql.ModuloMateria;
-using GeradorTestes.Infra.Sql.ModuloQuestao;
+using GeradorTestes.Infra.Orm.Compartilhado;
+using GeradorTestes.Infra.Orm.ModuloDisciplina;
+using GeradorTestes.Infra.Orm.ModuloMateria;
+using GeradorTestes.Infra.Orm.ModuloQuestao;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace GeradorTestes.TestesIntegracao.Compartilhado
@@ -22,9 +24,15 @@ namespace GeradorTestes.TestesIntegracao.Compartilhado
 
             string connectionString = ObterConnectionString();
 
-            repositorioDisciplina = new RepositorioDisciplinaEmSql(connectionString);
-            repositorioMateria = new RepositorioMateriaEmSql(connectionString);
-            repositorioQuestao = new RepositorioQuestaoEmSql(connectionString);
+            var optionsBuilder = new DbContextOptionsBuilder<GeradorTestesDbContext>();
+
+            optionsBuilder.UseSqlServer(connectionString);
+
+            var dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
+
+            repositorioDisciplina = new RepositorioDisciplinaEmOrm(dbContext);
+            repositorioMateria = new RepositorioMateriaEmOrm(dbContext);
+            repositorioQuestao = new RepositorioQuestaoEmOrm(dbContext);
 
             BuilderSetup.SetCreatePersistenceMethod<Disciplina>(repositorioDisciplina.Inserir);
             BuilderSetup.SetCreatePersistenceMethod<Materia>(repositorioMateria.Inserir);
@@ -39,14 +47,9 @@ namespace GeradorTestes.TestesIntegracao.Compartilhado
 
             string sqlLimpezaTabela =
                 @"
-                DELETE FROM [DBO].[TBQUESTAO]
-                DBCC CHECKIDENT ('[TBQUESTAO]', RESEED, 0);
-
-                DELETE FROM [DBO].[TBMATERIA]
-                DBCC CHECKIDENT ('[TBMATERIA]', RESEED, 0);
-
-                DELETE FROM [DBO].[TBDISCIPLINA]
-                DBCC CHECKIDENT ('[TBDISCIPLINA]', RESEED, 0);";
+                DELETE FROM [DBO].[TBQUESTAO];
+                DELETE FROM [DBO].[TBMATERIA];                
+                DELETE FROM [DBO].[TBDISCIPLINA];";
 
             SqlCommand comando = new SqlCommand(sqlLimpezaTabela, sqlConnection);
 

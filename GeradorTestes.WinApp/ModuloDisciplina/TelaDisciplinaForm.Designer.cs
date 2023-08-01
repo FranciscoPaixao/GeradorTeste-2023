@@ -32,32 +32,32 @@
             txtNome = new System.Windows.Forms.TextBox();
             btnGravar = new System.Windows.Forms.Button();
             btnCancelar = new System.Windows.Forms.Button();
-            txtId = new System.Windows.Forms.TextBox();
-            label1 = new System.Windows.Forms.Label();
             SuspendLayout();
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(36, 58);
+            label2.Location = new System.Drawing.Point(41, 77);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(43, 15);
+            label2.Size = new System.Drawing.Size(53, 20);
             label2.TabIndex = 0;
             label2.Text = "Nome:";
             // 
             // txtNome
             // 
-            txtNome.Location = new System.Drawing.Point(85, 55);
+            txtNome.Location = new System.Drawing.Point(97, 73);
+            txtNome.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             txtNome.Name = "txtNome";
-            txtNome.Size = new System.Drawing.Size(253, 23);
+            txtNome.Size = new System.Drawing.Size(289, 27);
             txtNome.TabIndex = 2;
             // 
             // btnGravar
             // 
             btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            btnGravar.Location = new System.Drawing.Point(182, 156);
+            btnGravar.Location = new System.Drawing.Point(208, 208);
+            btnGravar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnGravar.Name = "btnGravar";
-            btnGravar.Size = new System.Drawing.Size(75, 45);
+            btnGravar.Size = new System.Drawing.Size(86, 60);
             btnGravar.TabIndex = 3;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
@@ -66,41 +66,24 @@
             // btnCancelar
             // 
             btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            btnCancelar.Location = new System.Drawing.Point(263, 156);
+            btnCancelar.Location = new System.Drawing.Point(301, 208);
+            btnCancelar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new System.Drawing.Size(75, 45);
+            btnCancelar.Size = new System.Drawing.Size(86, 60);
             btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // txtId
-            // 
-            txtId.Enabled = false;
-            txtId.Location = new System.Drawing.Point(85, 26);
-            txtId.Name = "txtId";
-            txtId.Size = new System.Drawing.Size(60, 23);
-            txtId.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(59, 29);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(20, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Id:";
-            // 
             // TelaDisciplinaForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(356, 220);
-            Controls.Add(txtId);
-            Controls.Add(label1);
+            ClientSize = new System.Drawing.Size(407, 293);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
             Controls.Add(txtNome);
             Controls.Add(label2);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "TelaDisciplinaForm";
             Text = "Cadastro de Disciplinas";
             ResumeLayout(false);
@@ -112,7 +95,5 @@
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.TextBox txtId;
-        private System.Windows.Forms.Label label1;
     }
 }

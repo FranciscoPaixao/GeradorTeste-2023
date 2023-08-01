@@ -32,7 +32,7 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
                     @MATERIA_ID,
                     @DISCIPLINA_ID
 
-                );SELECT SCOPE_IDENTITY();";
+                );";
 
         protected override string sqlExcluir =>
            @"DELETE FROM [TBTESTE]
@@ -176,7 +176,7 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
 
         public override void Editar(Teste registro) { }
 
-        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false)
+        public Teste SelecionarPorId(Guid id, bool incluirQuestoes = false, bool incluirAlternativas = false)
         {
             Teste teste = base.SelecionarPorId(id);
 
@@ -259,7 +259,7 @@ namespace GeradorTestes.Infra.Sql.ModuloTeste
             throw new NotImplementedException();
         }
 
-        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
+        public Teste SelecionarPorId(Guid id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
         {
             throw new NotImplementedException();
         }

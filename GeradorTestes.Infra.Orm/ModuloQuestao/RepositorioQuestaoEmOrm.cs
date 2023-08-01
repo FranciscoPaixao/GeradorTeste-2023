@@ -8,7 +8,7 @@ namespace GeradorTestes.Infra.Orm.ModuloQuestao
         {
         }
 
-        public Questao SelecionarPorId(int id, bool incluirAlternativas = false)
+        public Questao SelecionarPorId(Guid id, bool incluirAlternativas = false)
         {
             if (incluirAlternativas)
                 return registros.Include(x => x.Alternativas).FirstOrDefault( x => x.Id == id);

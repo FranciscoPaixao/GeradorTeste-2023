@@ -21,9 +21,7 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
                         @NOME,
                         @SERIE,
                         @DISCIPLINA_ID
-                   ); 
-
-                SELECT SCOPE_IDENTITY()";
+                   );";
 
         protected override string sqlEditar =>
             @"UPDATE [TBMATERIA]

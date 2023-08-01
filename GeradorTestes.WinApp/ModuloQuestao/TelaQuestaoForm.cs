@@ -23,7 +23,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
         public Questao ObterQuestao()
         {
-            questao.Id = Convert.ToInt32(txtId.Text);
+            questao.Id = Guid.Parse(txtId.Text);
             questao.Enunciado = txtEnunciado.Text;
             questao.Materia = (Materia)cmbMaterias.SelectedItem;
             questao.JaUtilizada = chkJaUtilizada.Checked;

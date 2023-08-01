@@ -46,7 +46,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
 
         public override void Editar()
         {
-            int id = tabelaQuestao.ObtemIdSelecionado();
+            Guid id = tabelaQuestao.ObtemIdSelecionado();
 
             Questao questaoSelecionada = repositorioQuestao.SelecionarPorId(id, incluirAlternativas: true);
 

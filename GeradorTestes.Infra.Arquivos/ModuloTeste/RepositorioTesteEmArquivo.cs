@@ -23,12 +23,12 @@ namespace eAgenda.Infra.Arquivos.ModuloTeste
             return contextoDados.Testes;
         }
 
-        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false)
+        public Teste SelecionarPorId(Guid id, bool incluirQuestoes = false, bool incluirAlternativas = false)
         {
             return base.SelecionarPorId(id);
         }
 
-        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
+        public Teste SelecionarPorId(Guid id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
         {
             throw new System.NotImplementedException();
         }

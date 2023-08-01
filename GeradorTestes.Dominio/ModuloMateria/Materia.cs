@@ -17,7 +17,7 @@ namespace GeradorTestes.Dominio.ModuloMateria
             Disciplina = disciplina;
         }
 
-        public Materia(int id, string nome, SerieMateriaEnum serie, Disciplina disciplina) : this(nome, serie, disciplina)
+        public Materia(Guid id, string nome, SerieMateriaEnum serie, Disciplina disciplina) : this(nome, serie, disciplina)
         {
             this.Id = id;
         }

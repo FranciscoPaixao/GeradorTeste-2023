@@ -22,7 +22,7 @@ namespace GeradorTestes.Infra.Sql.ModuloMateria
             if (leitorMateria.HasColumn("MATERIA_ID") == false)
                 return null;
 
-            int id = Convert.ToInt32(leitorMateria["MATERIA_ID"]);
+            Guid id = Guid.Parse(leitorMateria["MATERIA_ID"].ToString());
 
             string nome = Convert.ToString(leitorMateria["MATERIA_NOME"]);
 

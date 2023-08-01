@@ -39,7 +39,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
         public override void Editar()
         {
-            int id = tabelaDisciplina.ObtemIdSelecionado();
+            Guid id = tabelaDisciplina.ObtemIdSelecionado();
 
             Disciplina disciplinaSelecionada = repositorioDisciplina.SelecionarPorId(id);
 
@@ -66,7 +66,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
 
         public override void Excluir()
         {
-            int id = tabelaDisciplina.ObtemIdSelecionado();
+            Guid id = tabelaDisciplina.ObtemIdSelecionado();
 
             Disciplina disciplinaSelecionada = repositorioDisciplina.SelecionarPorId(id);
 

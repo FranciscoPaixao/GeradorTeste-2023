@@ -24,7 +24,7 @@ namespace GeradorTestes.Dominio.ModuloQuestao
             JaUtilizada = jaUtilizada;
         }
 
-        public Questao(int id, string enunciado, Materia materia, bool jaUtilizada) : this(enunciado, materia, jaUtilizada)
+        public Questao(Guid id, string enunciado, Materia materia, bool jaUtilizada) : this(enunciado, materia, jaUtilizada)
         {
             Id = id;
         }

@@ -45,7 +45,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
 
         public override void Editar()
         {
-            int id = tabelaMaterias.ObtemIdSelecionado();
+            Guid id = tabelaMaterias.ObtemIdSelecionado();
 
             Materia materiaSelecionada = repositorioMateria.SelecionarPorId(id);
 
@@ -74,7 +74,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
 
         public override void Excluir()
         {
-            int id = tabelaMaterias.ObtemIdSelecionado();
+            Guid id = tabelaMaterias.ObtemIdSelecionado();
 
             Materia materiaSelecionada = repositorioMateria.SelecionarPorId(id);
 

@@ -28,7 +28,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
             if (materia != null && disciplina != null)
                 materia.Disciplina = disciplina;
 
-            int id = Convert.ToInt32(leitorQuestao["QUESTAO_ID"]);
+            Guid id = Guid.Parse(leitorQuestao["QUESTAO_ID"].ToString());
 
             string enunciado = Convert.ToString(leitorQuestao["QUESTAO_ENUNCIADO"]);
 

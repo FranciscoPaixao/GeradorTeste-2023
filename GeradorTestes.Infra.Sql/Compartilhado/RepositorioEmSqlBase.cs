@@ -38,9 +38,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
             mapeador.ConfigurarParametros(comandoInserir, novoRegistro);
 
             //executa o comando
-            object id = comandoInserir.ExecuteScalar();
-
-            novoRegistro.Id = Convert.ToInt32(id);
+            comandoInserir.ExecuteNonQuery();
 
             //encerra a conexão
             conexaoComBanco.Close();
@@ -109,7 +107,7 @@ namespace GeradorTestes.Infra.Sql.Compartilhado
             return Convert.ToInt32(qtdRegistros) > 0;
         }
 
-        public virtual TEntidade SelecionarPorId(int id)
+        public virtual TEntidade SelecionarPorId(Guid id)
         {
             //obter a conexão com o banco e abrir ela
             SqlConnection conexaoComBanco = new SqlConnection(connectionString);

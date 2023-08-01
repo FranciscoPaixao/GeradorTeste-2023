@@ -7,7 +7,7 @@ using GeradorTestes.Dominio.ModuloQuestao;
 namespace GeradorTestes.TestesIntegracao.ModuloDisciplina
 {
     [TestClass]
-    public class RepositorioDisciplinaEmSqlTest : TestesIntegracaoBase
+    public class RepositorioDisciplinaEmOrmTest : TestesIntegracaoBase
     {
         [TestMethod]
         public void Deve_inserir_disciplina()
@@ -56,8 +56,8 @@ namespace GeradorTestes.TestesIntegracao.ModuloDisciplina
         public void Deve_selecionar_todas_disciplinas()
         {
             //arrange
-            var matematica = Builder<Disciplina>.CreateNew().Persist();
-            var portugues = Builder<Disciplina>.CreateNew().Persist();
+            var matematica = Builder<Disciplina>.CreateNew().With(x => x.Nome="Matemática").Persist();
+            var portugues = Builder<Disciplina>.CreateNew().With(x => x.Nome = "Português").Persist();
 
             //action
             var disciplinas = repositorioDisciplina.SelecionarTodos();

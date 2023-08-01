@@ -62,12 +62,12 @@ namespace GeradorTestes.WinApp
 
             var dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
 
-            var migracoesPendentes = dbContext.Database.GetPendingMigrations();
+            //var migracoesPendentes = dbContext.Database.GetPendingMigrations();
 
-            if (migracoesPendentes.Count() > 0)
-            {
-                dbContext.Database.Migrate();
-            }
+            //if (migracoesPendentes.Count() > 0)
+            //{
+            //    dbContext.Database.Migrate();
+            //}
 
             IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmOrm(dbContext);
 

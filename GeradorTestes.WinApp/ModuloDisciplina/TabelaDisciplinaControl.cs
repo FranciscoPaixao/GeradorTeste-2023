@@ -18,7 +18,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
         {
             var colunas = new DataGridViewColumn[]
             {
-                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F },
+                new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id", FillWeight=15F, Visible=false },
 
                 new DataGridViewTextBoxColumn { Name = "Nome", HeaderText = "Nome", FillWeight=85F }
             };
@@ -26,7 +26,7 @@ namespace GeradorTestes.WinApp.ModuloDisciplina
             return colunas;
         }
 
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return grid.SelecionarId();
         }

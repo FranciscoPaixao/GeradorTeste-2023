@@ -20,7 +20,7 @@ namespace GeradorTestes.Dominio.ModuloTeste
             QuantidadeQuestoes = quantidadeQuestoes;
         }
 
-        public Teste(int id, string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this(titulo, provao, dataGeracao, quantidadeQuestoes) 
+        public Teste(Guid id, string titulo, bool provao, DateTime dataGeracao, int quantidadeQuestoes) : this(titulo, provao, dataGeracao, quantidadeQuestoes) 
         {
             Id = id;
         }

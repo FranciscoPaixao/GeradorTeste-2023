@@ -13,7 +13,7 @@
             Correta = correta;
         }
 
-        public Alternativa(int id, char letra, string resposta, bool correta) : this(letra, resposta, correta)
+        public Alternativa(Guid id, char letra, string resposta, bool correta) : this(letra, resposta, correta)
         {
             Id = id;
         }

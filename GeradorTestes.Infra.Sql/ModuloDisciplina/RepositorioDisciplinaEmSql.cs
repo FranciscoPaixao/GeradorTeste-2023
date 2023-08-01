@@ -23,7 +23,7 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
                  VALUES
                 (
                     @NOME
-                );SELECT SCOPE_IDENTITY();";
+                )";
 
         protected override string sqlEditar =>
             @"UPDATE [TBDISCIPLINA]	

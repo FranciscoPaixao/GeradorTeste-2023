@@ -45,7 +45,7 @@ namespace GeradorTestes.WinApp.ModuloQuestao
             }
         }
 
-        public int ObtemIdSelecionado()
+        public Guid ObtemIdSelecionado()
         {
             return grid.SelecionarId();
         }

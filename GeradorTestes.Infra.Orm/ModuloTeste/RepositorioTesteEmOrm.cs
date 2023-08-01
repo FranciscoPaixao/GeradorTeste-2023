@@ -8,7 +8,7 @@ namespace GeradorTestes.Infra.Orm.ModuloTeste
         {
         }
 
-        public Teste SelecionarPorId(int id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
+        public Teste SelecionarPorId(Guid id, bool incluirQuestoes = false, bool incluirAlternativas = false, bool incluirMateria = false)
         {
             if (incluirQuestoes && incluirAlternativas)
                 return registros

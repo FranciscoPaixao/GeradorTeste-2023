@@ -11,6 +11,7 @@ using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace GeradorTestes.ConsoleApp
@@ -132,6 +133,19 @@ namespace GeradorTestes.ConsoleApp
         */
 
         static void Main(string[] args)
+        {
+            Guid meuId = Guid.NewGuid();
+
+            var sx = new Guid();
+            string id = meuId.ToString();
+
+            Console.WriteLine( meuId );
+
+            Console.ReadLine();
+        }
+
+
+        static void Main2(string[] args)
         {
             var configuracao = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())

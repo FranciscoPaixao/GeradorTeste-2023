@@ -16,7 +16,7 @@ namespace GeradorTestes.Infra.Sql.ModuloDisciplina
             if (leitorDisciplina.HasColumn("DISCIPLINA_ID") == false)
                 return null;    
 
-            int id = Convert.ToInt32(leitorDisciplina["DISCIPLINA_ID"]);
+            Guid id = Guid.Parse(leitorDisciplina["DISCIPLINA_ID"].ToString());
 
             string nome = Convert.ToString(leitorDisciplina["DISCIPLINA_NOME"]);
 

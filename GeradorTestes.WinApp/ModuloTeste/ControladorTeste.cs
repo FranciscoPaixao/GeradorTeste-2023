@@ -43,7 +43,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         public override void Duplicar()
         {
-            int id = tabelaTeste.ObtemIdSelecionado();
+            Guid id = tabelaTeste.ObtemIdSelecionado();
 
             Teste testeSelecionado = repositorioTeste.SelecionarPorId(id);
 
@@ -74,7 +74,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         public override void Excluir()
         {
-            int id = tabelaTeste.ObtemIdSelecionado();
+            Guid id = tabelaTeste.ObtemIdSelecionado();
 
             Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes:true);
 
@@ -106,7 +106,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         public override void Visualizar()
         {
-            int id = tabelaTeste.ObtemIdSelecionado();
+            Guid id = tabelaTeste.ObtemIdSelecionado();
 
             Teste testeSelecionado = repositorioTeste.SelecionarPorId(id, incluirQuestoes:true);
 
@@ -124,7 +124,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
 
         public override void GerarPdf()
         {
-            int id = tabelaTeste.ObtemIdSelecionado();
+            Guid id = tabelaTeste.ObtemIdSelecionado();
 
             Teste testeSelecionado = repositorioTeste
                 .SelecionarPorId(id, incluirQuestoes: true, incluirAlternativas: true, incluirMateria: true);

@@ -23,7 +23,7 @@ namespace GeradorTestes.WinApp.ModuloTeste
         }
         public Teste ObterTeste()
         {
-            teste.Id = Convert.ToInt32(txtId.Text);
+            teste.Id = Guid.Parse(txtId.Text);
             teste.Titulo = txtTitulo.Text;
             teste.Disciplina = cmbDisciplinas.SelectedItem as Disciplina;
             teste.DataGeracao = DateTime.Now;

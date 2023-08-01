@@ -20,7 +20,7 @@ namespace GeradorTestes.Infra.Sql.ModuloQuestao
 
         public Alternativa ConverterRegistro(SqlDataReader leitorAlternativa)
         {
-            int id = Convert.ToInt32(leitorAlternativa["ALTERNATIVA_ID"]);
+            Guid id = Guid.Parse(leitorAlternativa["ALTERNATIVA_ID"].ToString());
 
             char letra = Convert.ToChar(leitorAlternativa["ALTERNATIVA_LETRA"]);
 

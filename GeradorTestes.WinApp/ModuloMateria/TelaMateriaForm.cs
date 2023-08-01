@@ -25,7 +25,7 @@ namespace GeradorTestes.WinApp.ModuloMateria
 
         public Materia ObterMateria()
         {
-            materia.Id = Convert.ToInt32(txtId.Text);
+            materia.Id = Guid.Parse(txtId.Text);
             materia.Nome = txtNome.Text;
             materia.Serie = (SerieMateriaEnum)cmbSeries.SelectedValue;
             materia.Disciplina = (Disciplina)cmbDisciplinas.SelectedItem;
