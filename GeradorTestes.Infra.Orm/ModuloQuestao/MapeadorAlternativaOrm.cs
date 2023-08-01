@@ -7,7 +7,7 @@ namespace GeradorTestes.Infra.Orm.ModuloQuestao
         public void Configure(EntityTypeBuilder<Alternativa> alternativa)
         {
             alternativa.ToTable("TBAlternativa");
-            alternativa.Property(a => a.Id).IsRequired(true).ValueGeneratedOnAdd();
+            alternativa.Property(a => a.Id).IsRequired(true).ValueGeneratedNever();
             alternativa.Property(a => a.Letra).IsRequired();
             alternativa.Property(a => a.Resposta).HasColumnType("varchar(100)").IsRequired();
             alternativa.Property(a => a.Correta).IsRequired();

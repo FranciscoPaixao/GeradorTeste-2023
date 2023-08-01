@@ -7,7 +7,7 @@ namespace GeradorTestes.Infra.Orm.ModuloTeste
         public void Configure(EntityTypeBuilder<Teste> teste)
         {
             teste.ToTable("TBTeste");
-            teste.Property(t => t.Id).IsRequired(true).ValueGeneratedOnAdd();
+            teste.Property(t => t.Id).IsRequired(true).ValueGeneratedNever();
             teste.Property(t => t.Titulo).HasColumnType("varchar(250)").IsRequired();
             teste.Property(t => t.Provao).IsRequired();
             teste.Property(t => t.DataGeracao).IsRequired();

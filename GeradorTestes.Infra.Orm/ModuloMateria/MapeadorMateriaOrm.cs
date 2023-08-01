@@ -7,7 +7,7 @@ namespace GeradorTestes.Infra.Orm.ModuloMateria
         public void Configure(EntityTypeBuilder<Materia> materiaBuilder)
         {
             materiaBuilder.ToTable("TBMateria");
-            materiaBuilder.Property(m => m.Id).IsRequired(true).ValueGeneratedOnAdd();
+            materiaBuilder.Property(m => m.Id).IsRequired(true).ValueGeneratedNever();
             materiaBuilder.Property(m => m.Nome).HasColumnType("varchar(100)").IsRequired();
             materiaBuilder.Property(m => m.Serie).HasConversion<int>().IsRequired();
 

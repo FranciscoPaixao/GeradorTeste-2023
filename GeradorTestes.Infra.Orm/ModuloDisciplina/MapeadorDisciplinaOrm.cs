@@ -8,7 +8,7 @@ namespace GeradorTestes.Infra.Orm.ModuloDisciplina
         {
             disciplinaBuilder.ToTable("TBDisciplina");
 
-            disciplinaBuilder.Property(d => d.Id).IsRequired().ValueGeneratedOnAdd();
+            disciplinaBuilder.Property(d => d.Id).IsRequired().ValueGeneratedNever();
 
             disciplinaBuilder.Property(d => d.Nome).HasColumnType("varchar(100)").IsRequired();
         }
