@@ -1,28 +1,6 @@
-﻿using GeradorTestes.Aplicacao.ModuloDisciplina;
-using GeradorTestes.Aplicacao.ModuloMateria;
-using GeradorTestes.Aplicacao.ModuloQuestao;
-using GeradorTestes.Aplicacao.ModuloTeste;
-using GeradorTestes.Dominio.ModuloDisciplina;
-using GeradorTestes.Dominio.ModuloMateria;
-using GeradorTestes.Dominio.ModuloQuestao;
-using GeradorTestes.Dominio.ModuloTeste;
-using GeradorTestes.Infra.Orm.Compartilhado;
-using GeradorTestes.Infra.Orm.ModuloDisciplina;
-using GeradorTestes.Infra.Orm.ModuloMateria;
-using GeradorTestes.Infra.Orm.ModuloQuestao;
-using GeradorTestes.Infra.Orm.ModuloTeste;
-using GeradorTestes.Infra.Pdf;
-using GeradorTestes.WinApp.ModuloDisciplina;
-using GeradorTestes.WinApp.ModuloMateria;
-using GeradorTestes.WinApp.ModuloQuestao;
-using GeradorTestes.WinApp.ModuloTeste;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.IO;
-
-namespace GeradorTestes.WinApp.Compartilhado
+﻿namespace GeradorTestes.WinApp.Compartilhado
 {
+    /* Exemplo sem Injeção de Dependência
     public class IoC_ComServiceLocator : IoC
     {
         private Dictionary<string, ControladorBase> controladores;
@@ -91,4 +69,5 @@ namespace GeradorTestes.WinApp.Compartilhado
             return controladores[nome];
         }
     }
+    */
 }

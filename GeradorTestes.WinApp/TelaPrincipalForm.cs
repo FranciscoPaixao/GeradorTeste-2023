@@ -1,4 +1,5 @@
 ﻿using GeradorTestes.WinApp.Compartilhado;
+using GeradorTestes.WinApp.Compartilhado.IoC;
 using GeradorTestes.WinApp.ModuloDisciplina;
 using GeradorTestes.WinApp.ModuloMateria;
 using GeradorTestes.WinApp.ModuloQuestao;
@@ -22,7 +23,7 @@ namespace GeradorTestes.WinApp
             labelRodape.Text = string.Empty;
             labelTipoCadastro.Text = string.Empty;
 
-            IoC = new IoC_ComServiceLocator();
+            IoC = new IoC_ComInjecaoDependencia();
         }       
 
         public static TelaPrincipalForm Instancia

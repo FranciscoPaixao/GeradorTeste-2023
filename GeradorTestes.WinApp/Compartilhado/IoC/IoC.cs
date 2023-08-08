@@ -2,6 +2,6 @@
 {
     public interface IoC
     {
-        ControladorBase Get<T>();
+        T Get<T>();
     }
 }

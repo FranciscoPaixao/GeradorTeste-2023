@@ -11,14 +11,95 @@ using GeradorTestes.Infra.Sql.ModuloQuestao;
 using GeradorTestes.Infra.Sql.ModuloTeste;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GeradorTestes.ConsoleApp
 {
+    public class ControladorXpto
+    {
+        private readonly ServicoXpto servicoXpto;
+        private readonly RepositorioXpto repositorioXpto;
+        private readonly Logger logger;
+
+        public ControladorXpto(ServicoXpto servicoXpto, RepositorioXpto repositorioXpto, Logger logger)
+        {
+            this.servicoXpto = servicoXpto;
+            this.repositorioXpto = repositorioXpto;
+            this.logger = logger;
+        }
+
+        public void Inserir(string registro)
+        {
+            servicoXpto.Inserir(registro);
+        }
+
+        public void MostrarRegistros()
+        {
+            var registros = repositorioXpto.Todos();
+
+            foreach (var registro in registros)
+            {
+                Console.WriteLine(registro);
+            }
+        }
+    }
+
+    public class ServicoXpto
+    {
+        private readonly RepositorioXpto repositorioXpto;
+
+        public ServicoXpto(RepositorioXpto repositorioXpto)
+        {
+            this.repositorioXpto = repositorioXpto;
+        }
+
+        public void Inserir(string registro)
+        {
+            repositorioXpto.Inserir(registro);
+        }
+    }
+
+    public class RepositorioXpto
+    {
+        List<string> listaDeRegistros = new List<string>();
+
+        private readonly Logger logger;
+
+        public RepositorioXpto(Logger logger)
+        {
+            this.logger = logger;
+        }
+
+        public void Inserir(string registro)
+        {
+            listaDeRegistros.Add(registro);
+            logger.Log(registro);
+        }
+
+        public List<string> Todos()
+        {
+            return listaDeRegistros;
+        }
+    }
+
+    public class Logger
+    {
+        List<string> logs = new List<string>();
+
+        public void Log(string mensagem)
+        {
+            logs.Add(mensagem);
+        }
+    }
+
+
 
     internal class Program
     {
+
         /* Exemplos com Entity
         static void Main(string[] args)
         {
@@ -132,16 +213,53 @@ namespace GeradorTestes.ConsoleApp
         }
         */
 
+        static ServiceProvider container;
+
         static void Main(string[] args)
         {
-            Guid meuId = Guid.NewGuid();
+            ConfigurarServicos();
 
-            var sx = new Guid();
-            string id = meuId.ToString();
+            //ControladorXpto controlador1 = container.GetService<ControladorXpto>();
 
-            Console.WriteLine( meuId );
+            //controlador1.Inserir("Gustavo Rafaeli");
 
-            Console.ReadLine();
+            //ControladorXpto controlador2 = container.GetService<ControladorXpto>();
+
+            //controlador2.Inserir("Diego Oliveira");
+
+            using (var escopo = container.CreateScope())
+            {
+                ControladorXpto controlador1 = escopo.ServiceProvider.GetService<ControladorXpto>();
+
+                controlador1.Inserir("Gustavo Rafaeli");
+
+                ControladorXpto controlador2 = escopo.ServiceProvider.GetService<ControladorXpto>();
+
+                controlador2.Inserir("Diego Oliveira");
+            }
+
+            using (var escopo = container.CreateScope())
+            {
+                ControladorXpto controlador3 = escopo.ServiceProvider.GetService<ControladorXpto>();
+
+                controlador3.Inserir("Alexsander Hubner");
+
+                ControladorXpto controlador4 = escopo.ServiceProvider.GetService<ControladorXpto>();
+
+                controlador4.Inserir("Lisiana Tomelin");
+            }
+        }
+
+        private static void ConfigurarServicos()
+        {
+            var servicos = new ServiceCollection();
+
+            servicos.AddTransient<ControladorXpto>();
+            servicos.AddTransient<ServicoXpto>();
+            servicos.AddScoped<RepositorioXpto>();
+            servicos.AddSingleton<Logger>();
+
+            container = servicos.BuildServiceProvider();
         }
 
 
