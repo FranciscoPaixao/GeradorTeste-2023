@@ -1,5 +1,4 @@
 ﻿using GeradorTestes.WinApp.Compartilhado;
-using GeradorTestes.WinApp.Compartilhado.IoC;
 using GeradorTestes.WinApp.ModuloDisciplina;
 using GeradorTestes.WinApp.ModuloMateria;
 using GeradorTestes.WinApp.ModuloQuestao;

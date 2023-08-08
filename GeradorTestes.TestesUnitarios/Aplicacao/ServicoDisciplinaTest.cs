@@ -3,6 +3,7 @@ using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using FluentValidation.Results;
 using GeradorTestes.Aplicacao.ModuloDisciplina;
+using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using Moq;
 
@@ -13,6 +14,7 @@ namespace GeradorTestes.TestesUnitarios.Aplicacao
     {
         Mock<IRepositorioDisciplina> repositorioDisciplinaMoq;
         Mock<IValidadorDisciplina> validadorMoq;
+        Mock<IContextoPersistencia> contextoMoq;
 
         private ServicoDisciplina servicoDisciplina;
 
@@ -22,7 +24,8 @@ namespace GeradorTestes.TestesUnitarios.Aplicacao
         {
             repositorioDisciplinaMoq = new Mock<IRepositorioDisciplina>();
             validadorMoq = new Mock<IValidadorDisciplina>();
-            servicoDisciplina = new ServicoDisciplina(repositorioDisciplinaMoq.Object, validadorMoq.Object);
+            contextoMoq = new Mock<IContextoPersistencia>();
+            servicoDisciplina = new ServicoDisciplina(repositorioDisciplinaMoq.Object, validadorMoq.Object, contextoMoq.Object);
             disciplina = new Disciplina("Educação Física");
         }
 
