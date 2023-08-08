@@ -15,6 +15,7 @@ using GeradorTestes.Infra.Orm.ModuloQuestao;
 using GeradorTestes.Infra.Orm.ModuloTeste;
 
 using GeradorTestes.Infra.Pdf;
+using GeradorTestes.WinApp.Compartilhado;
 using GeradorTestes.WinApp.ModuloDisciplina;
 using GeradorTestes.WinApp.ModuloMateria;
 using GeradorTestes.WinApp.ModuloQuestao;
@@ -30,9 +31,9 @@ namespace GeradorTestes.WinApp
 {
     public partial class TelaPrincipalForm : Form
     {
-        private Dictionary<string, ControladorBase> controladores;
-
+       
         private ControladorBase controlador;
+        private IoC IoC;
 
         public TelaPrincipalForm()
         {
@@ -43,63 +44,8 @@ namespace GeradorTestes.WinApp
             labelRodape.Text = string.Empty;
             labelTipoCadastro.Text = string.Empty;
 
-            controladores = new Dictionary<string, ControladorBase>();
-
-            ConfigurarControladores();
-        }
-
-        private void ConfigurarControladores()
-        {
-            var configuracao = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json")
-               .Build();
-
-            var connectionString = configuracao.GetConnectionString("SqlServer");
-
-            var optionsBuilder = new DbContextOptionsBuilder<GeradorTestesDbContext>();
-
-            optionsBuilder.UseSqlServer(connectionString);
-
-            GeradorTestesDbContext dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
-
-            //var migracoesPendentes = dbContext.Database.GetPendingMigrations();
-
-            //if (migracoesPendentes.Count() > 0)
-            //{
-            //    dbContext.Database.Migrate();
-            //}
-
-            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmOrm(dbContext);
-
-            ValidadorDisciplina validadorDisciplina = new ValidadorDisciplina();
-
-            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina, validadorDisciplina, dbContext);
-
-            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
-
-            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmOrm(dbContext);
-
-            ValidadorMateria validadorMateria = new ValidadorMateria();
-            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria, dbContext);
-
-            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
-
-            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmOrm(dbContext);
-
-            ValidadorQuestao validadorQuestao = new ValidadorQuestao();
-            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
-            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioDisciplina, servicoQuestao));
-
-            IRepositorioTeste repositorioTeste = new RepositorioTesteEmOrm(dbContext);
-
-            IGeradorArquivo geradorRelatorio = new GeradorTesteEmPdf();
-
-            ValidadorTeste validadorTeste = new ValidadorTeste();
-            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste, repositorioQuestao, validadorTeste, geradorRelatorio);
-
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste, repositorioDisciplina, servicoTeste));
-        }
+            IoC = new IoC_ComServiceLocator();
+        }       
 
         public static TelaPrincipalForm Instancia
         {
@@ -121,24 +67,23 @@ namespace GeradorTestes.WinApp
 
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorDisciplina"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorDisciplina>());
         }
 
         private void materiasMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorMateria"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorMateria>());
         }
 
         private void questoesMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorQuestao"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorQuestao>());
         }
 
         private void testesMenuItem_Click(object sender, EventArgs e)
         {
-            ConfigurarTelaPrincipal(controladores["ControladorTeste"]);
+            ConfigurarTelaPrincipal(IoC.Get<ControladorTeste>());
         }
-
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
