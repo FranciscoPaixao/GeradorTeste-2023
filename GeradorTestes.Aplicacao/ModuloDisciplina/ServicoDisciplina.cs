@@ -1,18 +1,22 @@
-﻿using GeradorTestes.Dominio.ModuloDisciplina;
+﻿using GeradorTestes.Dominio;
+using GeradorTestes.Dominio.ModuloDisciplina;
 
 namespace GeradorTestes.Aplicacao.ModuloDisciplina
 {
     public class ServicoDisciplina
     {
-        private IRepositorioDisciplina repositorioDisciplina;
-        private IValidadorDisciplina validadorDisciplina;
+        private readonly IRepositorioDisciplina repositorioDisciplina;
+        private readonly IValidadorDisciplina validadorDisciplina;
+        private readonly IContextoPersistencia contextoPersistencia;
 
         public ServicoDisciplina(
             IRepositorioDisciplina repositorioDisciplina,
-            IValidadorDisciplina validadorDisciplina)
+            IValidadorDisciplina validadorDisciplina, 
+            IContextoPersistencia contextoPersistencia)
         {
             this.repositorioDisciplina = repositorioDisciplina;
             this.validadorDisciplina = validadorDisciplina;
+            this.contextoPersistencia = contextoPersistencia;
         }
 
         public Result Inserir(Disciplina disciplina)
@@ -21,12 +25,18 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
             List<string> erros = ValidarDisciplina(disciplina);
 
-            if (erros.Count() > 0)
-                return Result.Fail(erros); //cenário 2
+            if (erros.Count() > 0) //cenário 2
+            {
+                contextoPersistencia.DesfazerAlteracoes();
+
+                return Result.Fail(erros);
+            } 
 
             try
             {
-                repositorioDisciplina.Inserir(disciplina);
+                repositorioDisciplina.Inserir(disciplina);                
+
+                contextoPersistencia.GravarDados();
 
                 Log.Debug("Disciplina {DisciplinaId} inserida com sucesso", disciplina.Id);
 
@@ -49,11 +59,16 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
             List<string> erros = ValidarDisciplina(disciplina);
 
             if (erros.Count() > 0)
-                return Result.Fail(erros);
+            {
+                contextoPersistencia.DesfazerAlteracoes();
 
+                return Result.Fail(erros);
+            }
             try
             {
                 repositorioDisciplina.Editar(disciplina);
+
+                contextoPersistencia.GravarDados();
 
                 Log.Debug("Disciplina {DisciplinaId} editada com sucesso", disciplina.Id);
 
@@ -86,12 +101,16 @@ namespace GeradorTestes.Aplicacao.ModuloDisciplina
 
                 repositorioDisciplina.Excluir(disciplina);
 
+                contextoPersistencia.GravarDados();
+
                 Log.Debug("Disciplina {DisciplinaId} excluída com sucesso", disciplina.Id);
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 List<string> erros = new List<string>();
               
                 string msgErro;

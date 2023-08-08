@@ -2,6 +2,7 @@
 using GeradorTestes.Aplicacao.ModuloMateria;
 using GeradorTestes.Aplicacao.ModuloQuestao;
 using GeradorTestes.Aplicacao.ModuloTeste;
+using GeradorTestes.Dominio;
 using GeradorTestes.Dominio.ModuloDisciplina;
 using GeradorTestes.Dominio.ModuloMateria;
 using GeradorTestes.Dominio.ModuloQuestao;
@@ -60,7 +61,7 @@ namespace GeradorTestes.WinApp
 
             optionsBuilder.UseSqlServer(connectionString);
 
-            var dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
+            GeradorTestesDbContext dbContext = new GeradorTestesDbContext(optionsBuilder.Options);
 
             //var migracoesPendentes = dbContext.Database.GetPendingMigrations();
 
@@ -73,14 +74,14 @@ namespace GeradorTestes.WinApp
 
             ValidadorDisciplina validadorDisciplina = new ValidadorDisciplina();
 
-            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina, validadorDisciplina);
+            ServicoDisciplina servicoDisciplina = new ServicoDisciplina(repositorioDisciplina, validadorDisciplina, dbContext);
 
             controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina, servicoDisciplina));
 
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmOrm(dbContext);
 
             ValidadorMateria validadorMateria = new ValidadorMateria();
-            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria);
+            ServicoMateria servicoMateria = new ServicoMateria(repositorioMateria, validadorMateria, dbContext);
 
             controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina, servicoMateria));
 

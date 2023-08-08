@@ -1,6 +1,6 @@
 ﻿namespace GeradorTestes.Dominio
 {
-    public interface IContextoPersistencia
+    public interface IContextoPersistencia // Unit of Work - UoW
     {
         void DesfazerAlteracoes();
 

@@ -1,16 +1,22 @@
-﻿using GeradorTestes.Dominio.ModuloMateria;
+﻿using GeradorTestes.Dominio;
+using GeradorTestes.Dominio.ModuloMateria;
 
 namespace GeradorTestes.Aplicacao.ModuloMateria
 {
     public class ServicoMateria
     {
-        private IRepositorioMateria repositorioMateria;
-        private ValidadorMateria validadorMateria;
+        private readonly IRepositorioMateria repositorioMateria;
+        private readonly ValidadorMateria validadorMateria;
+        private readonly IContextoPersistencia contextoPersistencia;
 
-        public ServicoMateria(IRepositorioMateria repositorioMateria, ValidadorMateria validadorMateria)
+        public ServicoMateria(
+            IRepositorioMateria repositorioMateria, 
+            ValidadorMateria validadorMateria, 
+            IContextoPersistencia contextoPersistencia)
         {
             this.repositorioMateria = repositorioMateria;
             this.validadorMateria = validadorMateria;
+            this.contextoPersistencia = contextoPersistencia;
         }
 
         public Result Inserir(Materia materia)
@@ -20,11 +26,15 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             List<string> erros = ValidarMateria(materia);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
                 return Result.Fail(erros);
-
+            }
             try
             {
                 repositorioMateria.Inserir(materia);
+
+                contextoPersistencia.GravarDados();
 
                 Log.Debug("Matéria {MateriaId} inserida com sucesso", materia.Id);
 
@@ -32,6 +42,8 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             }
             catch (Exception exc)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 string msgErro = "Falha ao tentar inserir matéria.";
 
                 Log.Error(exc, msgErro + "{@m}", materia);
@@ -47,11 +59,16 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             List<string> erros = ValidarMateria(materia);
 
             if (erros.Count() > 0)
+            {
+                contextoPersistencia.DesfazerAlteracoes();
                 return Result.Fail(erros);
+            }
 
             try
             {
                 repositorioMateria.Editar(materia);
+
+                contextoPersistencia.GravarDados();
 
                 Log.Debug("Matéria {MateriaId} editada com sucesso", materia.Id);
 
@@ -59,6 +76,8 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             }
             catch (Exception exc)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 string msgErro = "Falha ao tentar editar matéria.";
 
                 Log.Error(exc, msgErro + "{@m}", materia);
@@ -75,12 +94,16 @@ namespace GeradorTestes.Aplicacao.ModuloMateria
             {
                 repositorioMateria.Excluir(materia);
 
-                Log.Debug("Matéria {MateriaId} editada com sucesso", materia.Id);
+                contextoPersistencia.GravarDados();
+
+                Log.Debug("Matéria {MateriaId} excluída com sucesso", materia.Id);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                contextoPersistencia.DesfazerAlteracoes();
+
                 List<string> erros = new List<string>();
 
                 string msgErro = ObterMensagemErro(ex);
